@@ -2,8 +2,116 @@
 <html>
 <head>
   <title>trumpcounter</title>
+  <style>
+    .text-center {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  Trump Counter.
+  <noscript>Javascript Required</noscript>
+  <h1 id="time" class="text-center"></h1>
+  <h3 class="text-center">
+  <span id="sub"><span id="unit">day</span><span id="plural">s</span> left in the trump presidency.</span>
+  </h3>
+  <script>
+    window.addEventListener("load",() => {
+      var time = document.getElementById("time");
+      var unit = document.getElementById("unit");
+      var plur = document.getElementById("plural");
+      var goal = Date.UTC(2021, 1, 20, 9, 0, 0, 0);
+
+      function updateTimer() {
+        var now = Date.now();
+        var dif = goal - now;
+        if (dif <= 0) return false;
+        var mil = dif % 1000;
+        dif -= mil;
+        dif /= 1000;
+        var sec = dif % 60;
+        dif -= sec;
+        dif /= 60;
+        var min = dif % 60;
+        dif -= min;
+        dif /= 60;
+        var hour = dif % 24;
+        dif -= hour;
+        dif /= 24;
+        var day = dif % 365;
+        dif -= day;
+        dif /= 365;
+        var year = dif;
+        plur.textContent = "";
+        if (year > 0) {
+          time.textContent = year;
+          unit.textContent = "year";
+          if (year > 1) plur.textContent = "s";
+        } else if (day > 0) {
+          time.textContent = day;
+          unit.textContent = "day";
+          if (day > 1) plur.textContent = "s";
+        } else if (hour > 0) {
+          time.textContent = hour;
+          unit.textContent = "hour";
+          if (hour > 1) plur.textContent = "s";
+        } else if (min > 0) {
+          time.textContent = min;
+          unit.textContent = "minute";
+          if (min > 1) plur.textContent = "s";
+        } else if (sec > 0) {
+          time.textContent = sec;
+          unit.textContent = "second";
+          if (sec > 1) plur.textContent = "s";
+        } else if (mil > 0) {
+          time.textContent = mil;
+          unit.textContent = "millisecond";
+          if (mil > 1) plur.textContent = "s";
+        } else {
+          return false;
+        }
+        console.log(year + ":" + day + ":" + hour + ":" + min + ":" + sec + ":" + mil)
+        return true;
+      }
+  
+      function timed() {
+        let res = updateTimer();
+        if (res) {
+          setTimeout(timed, 1000);
+        } else {
+          time.textContent = "HOORAY!";
+          let sub = document.getElementById("sub");
+          sub.textContent = "THE TRUMP PRESIDENCY IS OVER";
+          celebrate();
+        }
+      }
+  
+      async function celebrate() {
+        var body = document.getElementsByTagName("body")[0]; // rainbow
+        while (true) {
+          body.style.backgroundColor = getRandomColor();
+          await sleep(1000);
+        }
+      }
+  
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+  
+      function sleep(mil) {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve(true);
+          }, mil);
+        });
+      }
+
+      timed();
+    },false);
+  </script>
 </body>
 </html>
