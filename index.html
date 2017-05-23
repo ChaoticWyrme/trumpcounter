@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>trumpcounter</title>
   <style>
     .text-center {
       text-align: center;
     }
+    .container {
+      margin:20% 0;
+    }
   </style>
 </head>
 <body>
-  <noscript>Javascript Required</noscript>
-  <h1 id="time" class="text-center"></h1>
-  <h3 class="text-center">
-  <span id="sub"><span id="unit">day</span><span id="plural">s</span> left in the trump presidency.</span>
-  </h3>
+  <div class="container">
+    <noscript>Javascript Required</noscript>
+    <h1 id="time" class="text-center"></h1>
+    <h3 class="text-center">
+    <span id="sub"><span id="unit">day</span><span id="plural">s</span> left in the trump presidency.</span>
+    </h3>
+  </div>
   <script>
     window.addEventListener("load",() => {
       var time = document.getElementById("time");
